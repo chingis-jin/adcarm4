@@ -268,24 +268,26 @@ class BaseController:
         self.v_des_left = int(left * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_right = int(right * self.ticks_per_meter / self.arduino.PID_RATE)
         '''
-        if x == 0 and y != 0:
+        if x == 0 and y != 0 and th == 0:
             leftF = rightB = y
             leftB = rightF = -leftF
             
-        elif y == 0 and x != 0:
+        elif y == 0 and x != 0 and th == 0:
             leftF = leftB = rightF = rightB = x
         elif x == 0 and y == 0 and th != 0:
             leftF = leftB = -th
             rightF = rightB = th
             print leftF,leftB,rightF,rightB
-        else:
-            if abs(x) != 0 and abs(x) == abs(y):
-                if (x>0 and y>0) or (x<0 and y<0):
-                    leftF =  rightB = x
-                    leftB = rightF = 0
-                else:
-                    leftB = rightF = x
-                    leftF = rightB = 0
+        elif abs(x) != 0 and abs(x) == abs(y) and th == 0:
+            if (x>0 and y>0) or (x<0 and y<0):
+                leftF =  rightB = x
+                leftB = rightF = 0
+            else:
+                leftB = rightF = x
+                leftF = rightB = 0
+        elif abs(x) != abs(y) and th != 0:
+            leftF = leftB = x - th * self.wheel_track  * self.gear_reduction / 2.0
+            rightF = rightB = x + th * self.wheel_track  * self.gear_reduction / 2.0           
         
         self.v_des_leftF = int(leftF * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_leftB = int(leftB * self.ticks_per_meter / self.arduino.PID_RATE)
