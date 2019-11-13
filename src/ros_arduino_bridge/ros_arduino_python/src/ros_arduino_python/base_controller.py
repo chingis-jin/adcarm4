@@ -251,7 +251,7 @@ class BaseController:
         
         x = req.linear.x         # m/s
         y = req.linear.y
-        #th = req.angular.z       # rad/s
+        th = req.angular.z       # rad/s
         '''
         if x == 0:
             # Turn in place
@@ -268,14 +268,18 @@ class BaseController:
         self.v_des_left = int(left * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_right = int(right * self.ticks_per_meter / self.arduino.PID_RATE)
         '''
-        if x == 0:
+        if x == 0 and y != 0:
             leftF = rightB = y
             leftB = rightF = -leftF
             
-        elif y == 0:
+        elif y == 0 and x != 0:
             leftF = leftB = rightF = rightB = x
+        elif x == 0 and y == 0 and th != 0:
+            leftF = leftB = -th
+            rightF = rightB = th
+            print leftF,leftB,rightF,rightB
         else:
-            if abs(x) == abs(y):
+            if abs(x) != 0 and abs(x) == abs(y):
                 if (x>0 and y>0) or (x<0 and y<0):
                     leftF =  rightB = x
                     leftB = rightF = 0

@@ -287,6 +287,8 @@ class Arduino:
         '''
         #test
         print leftF,leftB,rightF,rightB
+        ana_v = self.analog_read(9)
+        print ana_v
         if self.motors_reversed:
             leftF,leftB,rightF,rightB = -leftF,-leftB,-rightF,-rightB
         return self.execute_ack('m %d %d %d %d' %(leftF, leftB, rightF, rightB))
