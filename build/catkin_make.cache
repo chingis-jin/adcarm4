@@ -1,0 +1,2 @@
+ros_arduino_bridge/ros_arduino_bridge:ros_arduino_bridge/ros_arduino_firmware:ros_arduino_bridge/ros_arduino_msgs:ros_arduino_bridge/ros_arduino_python
+-DCATKIN_DEVEL_PREFIX=/home/d/adcarm4/devel -DCMAKE_INSTALL_PREFIX=/home/d/adcarm4/install -G Unix Makefiles
