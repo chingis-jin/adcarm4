@@ -287,8 +287,9 @@ class BaseController:
                 leftF = rightB = 0
         elif abs(x) != abs(y) and th != 0:
             leftF = leftB = x - th * self.wheel_track  * self.gear_reduction / 2.0
-            rightF = rightB = x + th * self.wheel_track  * self.gear_reduction / 2.0           
-        
+            rightF = rightB = x + th * self.wheel_track  * self.gear_reduction / 2.0
+        else:
+            leftF =leftB = rightF = rightB = 0 
         self.v_des_leftF = int(leftF * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_leftB = int(leftB * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_rightF = int(rightF * self.ticks_per_meter / self.arduino.PID_RATE)
